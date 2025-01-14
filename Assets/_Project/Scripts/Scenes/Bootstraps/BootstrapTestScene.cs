@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class BootstrapTestScene : MonoBehaviour
 {
-    [SerializeField] private InjectorTestScene _injectorTestScene; 
     private GameController _gameController;
+    [SerializeField] private GameInput _gameinput;
+    [SerializeField] private PlayerMovement _playerMovement;
 
     private void Awake() 
     {
         EnableInputMap();
-        _injectorTestScene.Constract(_gameController);
+        _gameinput.Inject(_gameController);
+        _playerMovement.Inject(_gameinput);
+
     }
 
     private void EnableInputMap() 
