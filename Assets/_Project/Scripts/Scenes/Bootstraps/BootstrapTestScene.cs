@@ -11,7 +11,6 @@ public class BootstrapTestScene : MonoBehaviour
         EnableInputMap();
         _gameinput.Inject(_gameController);
         _playerMovement.Inject(_gameinput);
-
     }
 
     private void EnableInputMap() 

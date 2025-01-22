@@ -2,17 +2,22 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Собирает информацию ввода
+//ALERT!!!
+//Не настроено снятие данных с мыши (она реализованна по старому в классе PlayerCam)
 public class GameInput : MonoBehaviour
 {
 
     private GameController _gameController;
 
     public Action OnJumpAction;
+    public Action OnDashAction;
 
     public void Inject(GameController gameController) 
     {
         _gameController = gameController;
         _gameController.Player3rdPerson.Jump.performed += Jump;
+        _gameController.Player3rdPerson.Dash.performed += Dash;
 
     }
     
@@ -41,7 +46,7 @@ public class GameInput : MonoBehaviour
 
     private void Dash(InputAction.CallbackContext context)
     {
-        Debug.Log("Dash");
+        OnDashAction?.Invoke();
     }
 
     private void UseTeleport(InputAction.CallbackContext context)
@@ -82,6 +87,7 @@ public class GameInput : MonoBehaviour
     private void OnDisable()
     {
         _gameController.Player3rdPerson.Jump.performed -= Jump;
+        _gameController.Player3rdPerson.Dash.performed -= Dash;
 
     }
 
